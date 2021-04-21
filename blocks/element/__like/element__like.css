@@ -1,0 +1,16 @@
+.element__like{
+    height: 19px;
+    width: 22px;
+    background-image: url(../../../images/like.svg);
+    display: block;
+}
+.element__radio-like:hover + .element__like{
+    cursor: pointer;
+    opacity: .5;
+}
+.element__radio-like:checked + .element__like{
+    background-image: url(../../../images/like_active.svg);
+}
+.element__radio-like:disabled + .element__like{
+    background-image: url(../../../images/like.svg);
+}
