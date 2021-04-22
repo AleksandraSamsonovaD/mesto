@@ -11,30 +11,28 @@
         <img class="header__logo" alt="Место" src="./images/logo.svg">
     </header>
     <main>
-        <div class="profile">
+        <section class="profile">
             <div class="profile__file">
             <img class="profile__avatar" alt="Аватар" src="./images/avatar.jpg">
             <div class="profile__info">
-                <img class="profile__edit" alt="Добавить" src="./images/edit.svg" align="right">
+                <!--<img class="profile__edit" alt="Добавить" src="./images/edit.svg" align="right">-->
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
+                <button type="button" class="profile__edit"></button>
                 <p class="profile__subtitle">Исследователь океана</p>
             </div>
             </div>
-            <button class="profile__button">
+            <button class="profile__button" type="button">
                 <img alt="Добавить" src="./images/plus.svg">
             </button>
-        </div>
-        <div class="elements">
+        </section>
+        <section class="elements">
             <div class="element">
                 <img class="element__image" alt="Карачаевск" src="./images/Karachevsk.jpg"> 
                 <div class="element__description">
                     <h2 class="element__title">
                         Карачаевск
                     </h2> 
-                    <label>
-                        <input type="checkbox" class="element__radio-like">
-                        <span class="element__like"></span>
-                    </label>
+                    <button type="button" class="element__like"></button>
                 </div>
             </div>
             <div class="element">
@@ -43,10 +41,7 @@
                     <h2 class="element__title">
                         Гора Эльбрус
                     </h2>
-                    <label>
-                        <input type="checkbox" class="element__radio-like">
-                        <span class="element__like"></span>
-                    </label>
+                    <button type="button" class="element__like"></button>
                 </div>
             </div>
             <div class="element">
@@ -55,10 +50,7 @@
                     <h2 class="element__title">
                         Домбай
                     </h2>
-                    <label>
-                        <input type="checkbox" class="element__radio-like">
-                        <span class="element__like"></span>
-                    </label>
+                    <button type="button" class="element__like"></button>
                 </div>
             </div>
             <div class="element">
@@ -67,10 +59,7 @@
                     <h2 class="element__title">
                         Гора Эльбрус
                     </h2>
-                    <label>
-                        <input type="checkbox" class="element__radio-like">
-                        <span class="element__like"></span>
-                    </label>
+                    <button type="button" class="element__like"></button>
                 </div>
             </div>
             <div class="element">
@@ -79,10 +68,7 @@
                     <h2 class="element__title">
                         Домбай
                     </h2>
-                    <label>
-                        <input type="checkbox" class="element__radio-like">
-                        <span class="element__like"></span>
-                    </label>
+                    <button type="button" class="element__like"></button>
                 </div>
             </div>
             <div class="element">
@@ -91,13 +77,10 @@
                     <h2 class="element__title">
                         Карачаево-Черкесово
                     </h2>
-                    <label>
-                        <input type="checkbox" class="element__radio-like">
-                        <span class="element__like"></span>
-                    </label>
+                    <button type="button" class="element__like"></button>
                 </div>
             </div>
-        </div>
+        </section>
         <div class="popup">
             <form class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
@@ -111,6 +94,6 @@
     <footer class="footer">
         <p class="footer__copyright">&copy;2021.Самсонова Александра</p>
     </footer>
-    <script src='./script/script.js'></script>
+    <script src='./script/index.js'></script>
 </body>
 </html>

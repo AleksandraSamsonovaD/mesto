@@ -12,4 +12,4 @@
 * JavaScript
 
 **Сайт**
-* [Сылка на проекта на GitHub](https://vk.com/away.php?utf=1&to=https%3A%2F%2Faleksandrasamsonovad.github.io%2Fmesto%2Findex.html)
+* [Сылка на проекта на GitHub](https://aleksandrasamsonovad.github.io/mesto/index.html)

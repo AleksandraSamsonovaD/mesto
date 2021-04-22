@@ -3,6 +3,11 @@
     width: 24px;
     height: 24px;
     border: 1px solid #ffffff;
+    background-image: url(../../../images/edit.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+    display: inline;
 }
 .profile__edit:hover{
     cursor: pointer;

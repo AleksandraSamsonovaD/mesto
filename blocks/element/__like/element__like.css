@@ -3,14 +3,20 @@
     width: 22px;
     background-image: url(../../../images/like.svg);
     display: block;
+    border: none;
+    padding: 0;
+    margin: 4px 0 0;
+    background-color: white;
 }
-.element__radio-like:hover + .element__like{
+.element__like:hover{
     cursor: pointer;
     opacity: .5;
+    outline: none;
 }
-.element__radio-like:checked + .element__like{
+.element__like:active{
     background-image: url(../../../images/like_active.svg);
+    outline: none;
 }
-.element__radio-like:disabled + .element__like{
-    background-image: url(../../../images/like.svg);
+.element__like:focus{
+    outline: none;
 }
