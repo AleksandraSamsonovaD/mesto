@@ -1,0 +1,9 @@
+.popun__body{
+    max-width: 430px;
+    width: 90%;
+    background-color: white;
+    border-radius: 5%;
+    color: black;
+    text-align: center;
+    position: relative;
+}

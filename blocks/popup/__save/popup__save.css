@@ -15,10 +15,12 @@
 }
 .popup__save:hover{
     cursor: pointer;
+    opacity: .75;
 }
 @media (max-width: 768px)  {
     .popup__save{
         font-size: 14px;
         line-height: 17px;
+        margin: 45px 0 25px;
     }
 }

@@ -1,13 +1,13 @@
 .profile__edit{
-    margin-top: 15px;
+    margin: 15px 0 0 18px;
     width: 24px;
     height: 24px;
     border: 1px solid #ffffff;
     background-image: url(../../../images/edit.svg);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-position: center;
     background-color: black;
-    display: inline;
+    float: right;
 }
 .profile__edit:hover{
     cursor: pointer;
@@ -15,7 +15,7 @@
 }
 @media (max-width: 768px)  {
     .profile__edit{
-        margin-top: 34px;
+        margin: 34px 0 0 10px;
         width: 18px;
         height: 18px;
     }

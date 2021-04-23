@@ -4,6 +4,9 @@
     right: -48px;
     background: none;
     border: none;
+    background-image: url("../../../images/Close_Icon.svg");
+    width: 48px;
+    height: 48px;
 }
 .popup__close:hover{
     cursor: pointer;
