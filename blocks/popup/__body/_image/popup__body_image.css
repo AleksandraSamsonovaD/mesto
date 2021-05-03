@@ -1,0 +1,6 @@
+.popup__body_image{
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0;
+    max-width: max-content;
+    width: max-content;
+}
