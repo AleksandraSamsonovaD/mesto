@@ -77,8 +77,8 @@ function addEmenent(name, addres){
 
     imageEdit.addEventListener('click',function(){
       imagePopun.classList.add('popup_opened');
-      imagePopun.querySelector('.popun__name').textContent = name;
-      imagePopun.querySelector('.popun__image').src = addres;
+      imagePopun.querySelector('.popup__name').textContent = name;
+      imagePopun.querySelector('.popup__image').src = addres;
     });
 }
 
