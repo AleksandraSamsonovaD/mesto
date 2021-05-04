@@ -1,115 +1,98 @@
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
 const profileEdit = document.querySelector('.profile__edit');
-const profilePopun = document.querySelector('.popup_type_profile');
-const profileCloseButton = profilePopun.querySelector('.popup__close');
-const profileForm = profilePopun.querySelector('.popup__container');
+const profilePopup = document.querySelector('.popup_type_profile');
+const profileCloseButton = profilePopup.querySelector('.popup__close');
+const profileForm = profilePopup.querySelector('.popup__container');
+const profileName = document.querySelector('.profile__title');
+const profileDescription = document.querySelector('.profile__subtitle');
+const newName = document.querySelector('[name = "profile-name"]');
+const newDescription = document.querySelector('[name = "profile-description"]');
+const elements = document.querySelector('.elements');
+const elementTemplate = document.querySelector('#element-template').content;
+const mestoPopup = document.querySelector('.popup_type_mesto');
+const mestoEdit = document.querySelector('.profile__button');
+const mestoCloseButton = mestoPopup.querySelector('.popup__close');
+const mestoForm = mestoPopup.querySelector('.popup__container');
+const mestoName = document.querySelector('[name = "mesto-name"]');
+const mestoSrc = document.querySelector('[name = "mesto-description"]');
+const imagePopup = document.querySelector('.popup_type_image');
+const imageCloseButton = imagePopup.querySelector('.popup__close');
+const imageName = imagePopup.querySelector('.popup__name');
+const imageUrl = imagePopup.querySelector('.popup__image');
 
-let profileName = document.querySelector('.profile__title');
-let profileDescription = document.querySelector('.profile__subtitle');
-let newName = document.querySelector('[name = "profile-name"]');
-let newDescription = document.querySelector('[name = "profile-description"]');
-
-function openProfilePopun(){
-    profilePopun.classList.add('popup_opened');
-    newName.value = profileName.textContent;
-    newDescription.value = profileDescription.textContent;
-}
-
-function closedProfilePopup(){
-    profilePopun.classList.remove('popup_opened');
+function closedPopup(){
+    const popupClose = document.querySelector('.popup_opened');
+    popupClose.classList.remove('popup_opened');
 }
 
 function saveProfileData(evt){
     evt.preventDefault();
     profileName.textContent = newName.value;
     profileDescription.textContent  = newDescription.value;
-    closedProfilePopup();
+    closedPopup();
 }
-
-profileEdit.addEventListener('click',openProfilePopun);
-profileForm.addEventListener('submit',saveProfileData);
-profileCloseButton.addEventListener('click',closedProfilePopup);
-
-const elements = document.querySelector('.elements');
-initialCards.forEach(item => addEmenent(item.name, item.link));
 
 function addEmenent(name, addres){
-    const elementTemplate = document.querySelector('#element-template').content;
-    const element = elementTemplate.querySelector('.element').cloneNode(true);
+  const element = elementTemplate.querySelector('.element').cloneNode(true);
+  const imageEdit = element.querySelector('.element__image');
 
-    element.querySelector('.element__title').textContent = name;
-    element.querySelector('.element__image').src = addres;
-    elements.prepend(element);
+  element.querySelector('.element__title').textContent = name;
+  element.querySelector('.element__image').src = addres;
+  element.querySelector('.element__image').alt = name;
+  
 
-    element.querySelector('.element__trash').addEventListener('click',function(){
-      element.remove();
-    });
-    element.querySelector('.element__like').addEventListener('click',function(evt){
-      evt.target.classList.toggle('element__like_active');
-    });
+  element.querySelector('.element__trash').addEventListener('click',function(){
+    element.remove();
+  });
+  element.querySelector('.element__like').addEventListener('click',function(evt){
+    evt.target.classList.toggle('element__like_active');
+  });
 
-    const imageEdit = element.querySelector('.element__image');
+  imageEdit.addEventListener('click',openPopup);
 
-    imageEdit.addEventListener('click',function(){
-      imagePopun.classList.add('popup_opened');
-      imagePopun.querySelector('.popup__name').textContent = name;
-      imagePopun.querySelector('.popup__image').src = addres;
-    });
+  return element;
 }
 
-const mestoPopun = document.querySelector('.popup_type_mesto');
-const mestoEdit = document.querySelector('.profile__button');
-const mestoCloseButton = mestoPopun.querySelector('.popup__close');
-const mestoForm = mestoPopun.querySelector('.popup__container');
-let mestoName = document.querySelector('[name = "mesto-name"]');
-let mestoSrc = document.querySelector('[name = "mesto-description"]');
-
-function openMestoPopup(){
-    mestoPopun.classList.add('popup_opened');
-}
-function closedMestoPopup(){
-    mestoPopun.classList.remove('popup_opened');
-    mestoName.value = '';
-    mestoSrc.value ='';
-}
 function saveMestoData(evt){
     evt.preventDefault();
-    addEmenent(mestoName.value, mestoSrc.value);
-    closedMestoPopup();
+    addCard(mestoName.value, mestoSrc.value);
+    closedPopup();
 }
-mestoEdit.addEventListener('click',openMestoPopup);
-mestoCloseButton.addEventListener('click',closedMestoPopup);
+
+function openPopup(evt){
+  switch (evt.target.name) {
+    case "opener-profile":
+      addClassPopupOpened(profilePopup);
+      newName.value = profileName.textContent;
+      newDescription.value = profileDescription.textContent;
+      break;
+    case "opener-mesto":
+      addClassPopupOpened(mestoPopup);
+      mestoForm.reset();
+      break;
+    case "opener-image":
+      addClassPopupOpened(imagePopup);
+      imageName.textContent = evt.target.alt;
+      imageUrl.src = evt.target.src;
+      break;
+    default:
+      alert('Нет такого окна');
+  }
+}
+
+function addClassPopupOpened(popup){
+  popup.classList.add('popup_opened');
+}
+
+function addCard(name,link){
+  elements.prepend(addEmenent(name, link));
+}
+
+initialCards.forEach(item => addCard(item.name, item.link));
+
+mestoEdit.addEventListener('click',openPopup);
+mestoCloseButton.addEventListener('click',closedPopup);
 mestoForm.addEventListener('submit',saveMestoData);
-
-const imagePopun = document.querySelector('.popup_type_image');
-const imageCloseButton = imagePopun.querySelector('.popup__close');
-function closedImagePopup(){
-  imagePopun.classList.remove('popup_opened');
-}
-
-imageCloseButton.addEventListener('click',closedImagePopup);
+imageCloseButton.addEventListener('click',closedPopup);
+profileEdit.addEventListener('click',openPopup);
+profileForm.addEventListener('submit',saveProfileData);
+profileCloseButton.addEventListener('click',closedPopup);
