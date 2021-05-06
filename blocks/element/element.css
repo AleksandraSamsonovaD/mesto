@@ -3,6 +3,7 @@
     background-color: white;
     color: black;
     margin: 0 auto;
-    max-width: 282px;
+    width: 282px;
     position: relative;
+    text-align: center;
 }

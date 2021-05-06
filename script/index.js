@@ -19,16 +19,15 @@ const imageCloseButton = imagePopup.querySelector('.popup__close');
 const imageName = imagePopup.querySelector('.popup__name');
 const imageUrl = imagePopup.querySelector('.popup__image');
 
-function closedPopup(){
-    const popupClose = document.querySelector('.popup_opened');
-    popupClose.classList.remove('popup_opened');
+function closedPopup(popup){
+    popup.classList.remove('popup_opened');
 }
 
 function saveProfileData(evt){
     evt.preventDefault();
     profileName.textContent = newName.value;
     profileDescription.textContent  = newDescription.value;
-    closedPopup();
+    closedPopup(profilePopup);
 }
 
 function addEmenent(name, addres){
@@ -47,7 +46,7 @@ function addEmenent(name, addres){
     evt.target.classList.toggle('element__like_active');
   });
 
-  imageEdit.addEventListener('click',openPopup);
+  imageEdit.addEventListener('click',openImagePopup);
 
   return element;
 }
@@ -55,32 +54,29 @@ function addEmenent(name, addres){
 function saveMestoData(evt){
     evt.preventDefault();
     addCard(mestoName.value, mestoSrc.value);
-    closedPopup();
-}
-
-function openPopup(evt){
-  switch (evt.target.name) {
-    case "opener-profile":
-      addClassPopupOpened(profilePopup);
-      newName.value = profileName.textContent;
-      newDescription.value = profileDescription.textContent;
-      break;
-    case "opener-mesto":
-      addClassPopupOpened(mestoPopup);
-      mestoForm.reset();
-      break;
-    case "opener-image":
-      addClassPopupOpened(imagePopup);
-      imageName.textContent = evt.target.alt;
-      imageUrl.src = evt.target.src;
-      break;
-    default:
-      alert('Нет такого окна');
-  }
+    closedPopup(mestoPopup);
 }
 
 function addClassPopupOpened(popup){
   popup.classList.add('popup_opened');
+}
+
+function openMestoPopup(){
+  addClassPopupOpened(mestoPopup);
+  mestoForm.reset();
+}
+
+function openProfilePopup(){
+  addClassPopupOpened(profilePopup);
+  newName.value = profileName.textContent;
+  newDescription.value = profileDescription.textContent;
+}
+
+function openImagePopup(evt){
+  addClassPopupOpened(imagePopup);
+  imageName.textContent = evt.target.alt;
+  imageUrl.src = evt.target.src;
+  imageUrl.alt = evt.target.alt;
 }
 
 function addCard(name,link){
@@ -89,10 +85,10 @@ function addCard(name,link){
 
 initialCards.forEach(item => addCard(item.name, item.link));
 
-mestoEdit.addEventListener('click',openPopup);
-mestoCloseButton.addEventListener('click',closedPopup);
+mestoEdit.addEventListener('click',openMestoPopup);
+mestoCloseButton.addEventListener('click',()=>closedPopup(mestoPopup));
 mestoForm.addEventListener('submit',saveMestoData);
-imageCloseButton.addEventListener('click',closedPopup);
-profileEdit.addEventListener('click',openPopup);
+imageCloseButton.addEventListener('click',()=>closedPopup(imagePopup));
+profileEdit.addEventListener('click',openProfilePopup);
 profileForm.addEventListener('submit',saveProfileData);
-profileCloseButton.addEventListener('click',closedPopup);
+profileCloseButton.addEventListener('click',() => closedPopup(profilePopup));
