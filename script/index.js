@@ -18,9 +18,23 @@ const imagePopup = document.querySelector('.popup_type_image');
 const imageCloseButton = imagePopup.querySelector('.popup__close');
 const imageName = imagePopup.querySelector('.popup__name');
 const imageUrl = imagePopup.querySelector('.popup__image');
+const bodyImagePopun = imagePopup.querySelector('.popup__body');
+const bodyMestoPopun = mestoPopup.querySelector('.popup__body');
+const bodyProfilePopun = profilePopup.querySelector('.popup__body');
+
+const config = {
+  formSelector: '.popup__container',
+  inputSelector: '.popup__text',
+  submitButtonSelector: '.popup__save',
+  inputErrorClass: 'popup__text_type_error',
+  errorActiveClass: 'popun__input-error_active',
+};
+
+enableValidation(config);
 
 function closedPopup(popup){
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown',listedKey);  
 }
 
 function saveProfileData(evt){
@@ -56,20 +70,29 @@ function saveMestoData(evt){
     addCard(mestoName.value, mestoSrc.value);
     closedPopup(mestoPopup);
 }
+function listedKey(evt){
+  if (evt.key === 'Escape'){
+    const openerPopun = document.querySelector('.popup_opened');
+    closedPopup(openerPopun);
+  }
+};
 
 function addClassPopupOpened(popup){
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown',listedKey);  
 }
 
 function openMestoPopup(){
   addClassPopupOpened(mestoPopup);
   mestoForm.reset();
+  enableValidation(config);
 }
 
 function openProfilePopup(){
   addClassPopupOpened(profilePopup);
   newName.value = profileName.textContent;
   newDescription.value = profileDescription.textContent;
+  enableValidation(config);
 }
 
 function openImagePopup(evt){
@@ -92,3 +115,12 @@ imageCloseButton.addEventListener('click',()=>closedPopup(imagePopup));
 profileEdit.addEventListener('click',openProfilePopup);
 profileForm.addEventListener('submit',saveProfileData);
 profileCloseButton.addEventListener('click',() => closedPopup(profilePopup));
+
+profilePopup.addEventListener('click',() => closedPopup(profilePopup));
+bodyProfilePopun.addEventListener('click',(evt)=> evt.stopPropagation());
+
+mestoPopup.addEventListener('click',() => closedPopup(mestoPopup));
+bodyMestoPopun.addEventListener('click',(evt)=> evt.stopPropagation());
+
+imagePopup.addEventListener('click',() => closedPopup(imagePopup));
+bodyImagePopun.addEventListener('click',(evt)=> evt.stopPropagation());

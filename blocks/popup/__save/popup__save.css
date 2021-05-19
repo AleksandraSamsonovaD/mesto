@@ -17,6 +17,14 @@
     cursor: pointer;
     opacity: .75;
 }
+.popup__save:disabled{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+    opacity: 0.2;
+    cursor: not-allowed;
+}
 @media (max-width: 768px)  {
     .popup__save{
         font-size: 14px;

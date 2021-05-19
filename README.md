@@ -10,6 +10,8 @@
 * Методология БЭМ
 * Медиа запросы для разных устройств
 * JavaScript
+* Работа с формой
+* Валидация форм
 
 **Сайт**
 * [Сылка на проекта на GitHub](https://aleksandrasamsonovad.github.io/mesto/index.html)

@@ -47,11 +47,14 @@
     <div class="popup popup_type_profile">
         <div class="popup__body">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__container" name="info-profile">
-                <input type="text" class="popup__text" value="Жак-Ив Кусто" name="profile-name" placeholder="Ваше имя" required>
+            <form class="popup__container" name="info-profile" novalidate>
+                <input type="text" class="popup__text" value="Жак-Ив Кусто" name="profile-name"
+                     placeholder="Ваше имя" required minlength = 2 maxlength = 40 id="name-input">
+                <span class="popup__input-error name-input-error" ></span>
                 <input type="text" class="popup__text" value="Исследователь океана" name="profile-description"
-                    placeholder="О себе" required>
-                <input type="submit" class="popup__save" value="Сохранить">
+                    placeholder="О себе" required minlength = 2 maxlength = 200 id="description-input">
+                <span class="popup__input-error description-input-error"></span>
+                <button type="submit" class="popup__save" >Сохранить</button>
             </form>
             <button class="popup__close" type="button"></button>
         </div>
@@ -59,10 +62,14 @@
     <div class="popup popup_type_mesto">
         <div class="popup__body">
             <h2 class="popup__title">Новое место</h2>
-            <form class="popup__container" name="info-mesto">
-                <input type="text" class="popup__text" name="mesto-name" placeholder="Название" required>
-                <input type="url" class="popup__text" name="mesto-description" placeholder="Ссылка на картинку" required>
-                <input type="submit" class="popup__save" value="Создать">
+            <form class="popup__container" name="info-mesto" novalidate>
+                <input type="text" class="popup__text" name="mesto-name" 
+                placeholder="Название" required minlength = 2 maxlength = 30 id="mesto-input"> 
+                <span class="popup__input-error mesto-input-error" ></span>
+                <input type="url" class="popup__text" name="mesto-description" 
+                placeholder="Ссылка на картинку" required id="url-input">
+                <span class="popup__input-error url-input-error" ></span>
+                <button type="submit" class="popup__save">Создать</button>
             </form>
             <button class="popup__close" type="button"></button>
         </div>
@@ -75,6 +82,7 @@
         </div>
     </div>
     <script src='./script/initial-cards.js'></script>
+    <script src='./script/validate.js'></script>
     <script src='./script/index.js'></script>
 </body>
 
