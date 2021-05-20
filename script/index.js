@@ -30,6 +30,9 @@ const config = {
   errorActiveClass: 'popun__input-error_active',
 };
 
+const inputList = Array.from(mestoPopup.querySelectorAll(config.inputSelector));
+const buttonElement = mestoPopup.querySelector(config.submitButtonSelector);
+
 enableValidation(config);
 
 function closedPopup(popup){
@@ -85,14 +88,13 @@ function addClassPopupOpened(popup){
 function openMestoPopup(){
   addClassPopupOpened(mestoPopup);
   mestoForm.reset();
-  enableValidation(config);
+  toggleButtonState(inputList,buttonElement);
 }
 
 function openProfilePopup(){
   addClassPopupOpened(profilePopup);
   newName.value = profileName.textContent;
   newDescription.value = profileDescription.textContent;
-  enableValidation(config);
 }
 
 function openImagePopup(evt){

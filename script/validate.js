@@ -32,7 +32,6 @@ function setEventListener(form, config){
     const buttonElement = form.querySelector(submitButtonSelector);
 
     inputList.forEach((input)=>{
-        checkInputValidity(form,input, restConfig);
         input.addEventListener('input',()=> {
             checkInputValidity(form, input, restConfig);
             toggleButtonState(inputList,buttonElement);
@@ -54,10 +53,6 @@ function hasInvalidInput(input) {
     })
 };
 
-function toggleButtonState(input,button) {
-    if (hasInvalidInput(input)){
-      button.disabled = true;
-    } else {
-      button.disabled = false;
-    }
+function toggleButtonState(input,button) {  
+    button.disabled = hasInvalidInput(input); 
 };
