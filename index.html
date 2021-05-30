@@ -47,7 +47,7 @@
     <div class="popup popup_type_profile">
         <div class="popup__body">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__container" name="info-profile" novalidate>
+            <form class="popup__container" name="info-profile" novalidate id ="form-profile">
                 <input type="text" class="popup__text" value="Жак-Ив Кусто" name="profile-name"
                      placeholder="Ваше имя" required minlength = 2 maxlength = 40 id="name-input">
                 <span class="popup__input-error name-input-error" ></span>
@@ -62,7 +62,7 @@
     <div class="popup popup_type_mesto">
         <div class="popup__body">
             <h2 class="popup__title">Новое место</h2>
-            <form class="popup__container" name="info-mesto" novalidate>
+            <form class="popup__container" name="info-mesto" novalidate id ="form-mesto">
                 <input type="text" class="popup__text" name="mesto-name" 
                 placeholder="Название" required minlength = 2 maxlength = 30 id="mesto-input"> 
                 <span class="popup__input-error mesto-input-error" ></span>
@@ -82,8 +82,7 @@
         </div>
     </div>
     <script src='./script/initial-cards.js'></script>
-    <script src='./script/validate.js'></script>
-    <script src='./script/index.js'></script>
+    <script  type="module" src='./script/index.js'></script>
 </body>
 
 </html>

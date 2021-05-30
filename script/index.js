@@ -1,3 +1,6 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
 const profileEdit = document.querySelector('.profile__edit');
 const profilePopup = document.querySelector('.popup_type_profile');
 const profileCloseButton = profilePopup.querySelector('.popup__close');
@@ -7,7 +10,6 @@ const profileDescription = document.querySelector('.profile__subtitle');
 const newName = document.querySelector('[name = "profile-name"]');
 const newDescription = document.querySelector('[name = "profile-description"]');
 const elements = document.querySelector('.elements');
-const elementTemplate = document.querySelector('#element-template').content;
 const mestoPopup = document.querySelector('.popup_type_mesto');
 const mestoEdit = document.querySelector('.profile__button');
 const mestoCloseButton = mestoPopup.querySelector('.popup__close');
@@ -30,10 +32,13 @@ const config = {
   errorActiveClass: 'popun__input-error_active',
 };
 
-const inputList = Array.from(mestoPopup.querySelectorAll(config.inputSelector));
-const buttonElement = mestoPopup.querySelector(config.submitButtonSelector);
 
-enableValidation(config);
+const validMesto = new FormValidator(config, '#form-mesto');
+validMesto.enableValidation();
+
+const validProfile = new FormValidator(config, '#form-profile');
+validProfile.enableValidation();
+
 
 function closedPopup(popup){
     popup.classList.remove('popup_opened');
@@ -48,24 +53,9 @@ function saveProfileData(evt){
 }
 
 function addEmenent(name, addres){
-  const element = elementTemplate.querySelector('.element').cloneNode(true);
-  const imageEdit = element.querySelector('.element__image');
-
-  element.querySelector('.element__title').textContent = name;
-  element.querySelector('.element__image').src = addres;
-  element.querySelector('.element__image').alt = name;
-  
-
-  element.querySelector('.element__trash').addEventListener('click',function(){
-    element.remove();
-  });
-  element.querySelector('.element__like').addEventListener('click',function(evt){
-    evt.target.classList.toggle('element__like_active');
-  });
-
-  imageEdit.addEventListener('click',openImagePopup);
-
-  return element;
+  const element = new Card({name,addres}, '#element-template');
+  const elementCard = element.generateCard();
+  return elementCard;
 }
 
 function saveMestoData(evt){
@@ -88,16 +78,23 @@ function addClassPopupOpened(popup){
 function openMestoPopup(){
   addClassPopupOpened(mestoPopup);
   mestoForm.reset();
-  toggleButtonState(inputList,buttonElement);
+  const inputList = Array.from(mestoPopup.querySelectorAll(config.inputSelector));
+  const buttonElement = mestoPopup.querySelector(config.submitButtonSelector);
+  validMesto.toggleButtonState(inputList, buttonElement);
+  inputList.forEach((input)=>{validMesto.hideError(mestoForm,input)});
 }
 
 function openProfilePopup(){
   addClassPopupOpened(profilePopup);
   newName.value = profileName.textContent;
   newDescription.value = profileDescription.textContent;
+  const inputList = Array.from(profilePopup.querySelectorAll(config.inputSelector));
+  const buttonElement = profilePopup.querySelector(config.submitButtonSelector);
+  validProfile.toggleButtonState(inputList, buttonElement);
+  inputList.forEach((input)=>{validProfile.hideError(profilePopup,input)});
 }
 
-function openImagePopup(evt){
+export default function openImagePopup(evt){
   addClassPopupOpened(imagePopup);
   imageName.textContent = evt.target.alt;
   imageUrl.src = evt.target.src;
@@ -126,3 +123,4 @@ bodyMestoPopun.addEventListener('click',(evt)=> evt.stopPropagation());
 
 imagePopup.addEventListener('click',() => closedPopup(imagePopup));
 bodyImagePopun.addEventListener('click',(evt)=> evt.stopPropagation());
+ 

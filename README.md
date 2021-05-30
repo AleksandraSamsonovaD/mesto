@@ -12,6 +12,7 @@
 * JavaScript
 * Работа с формой
 * Валидация форм
+* ООП
 
 **Сайт**
 * [Сылка на проекта на GitHub](https://aleksandrasamsonovad.github.io/mesto/index.html)
