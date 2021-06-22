@@ -4,27 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
+    <!--<link rel="stylesheet" href="./pages/index.css">-->
     <title>Место</title>
 </head>
 
 <body class="page">
     <header class="header">
-        <img class="header__logo" alt="Место" src="./images/logo.svg">
+        <img class="header__logo" alt="Место" src="<%=require('./images/logo.svg')%>">
     </header>
     <main>
         <section class="profile">
             <div class="profile__file">
-                <img class="profile__avatar" alt="Аватар" src="./images/avatar.jpg">
+                <img class="profile__avatar" alt="Аватар" src="<%=require('./images/avatar.jpg')%>">
                 <div class="profile__info">
                     <button type="button" class="profile__edit" name="opener-profile"></button>
-                    <!--<img class="profile__edit" alt="Добавить" src="./images/edit.svg" align="right">-->
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
                     <p class="profile__subtitle">Исследователь океана</p>
                 </div>
             </div>
             <button class="profile__button" type="button" name="opener-mesto">
-                <img alt="Добавить" src="./images/plus.svg">
+                <img alt="Добавить" src="<%=require('./images/plus.svg')%>">
             </button>
         </section>
         <section class="elements">

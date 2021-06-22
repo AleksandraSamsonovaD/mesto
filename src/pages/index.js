@@ -9,6 +9,7 @@ import {profileEdit,
         config,
         initialCards
       } from "../untils/constants.js";
+import './index.css';
 
 
 const imagePopupClass = new PopupWithImage('.popup_type_image');
