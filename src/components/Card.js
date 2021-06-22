@@ -1,10 +1,9 @@
-import openImagePopup from "./index.js";
-
 export default class Card {
-    constructor(cardData, cardSelector) {
+    constructor(cardData, cardSelector, handleCardClick) {
         this._cardSelector = cardSelector;
         this._name = cardData.name;
         this._url = cardData.addres;
+        this._handleCardClick = handleCardClick;
     }
     _setEventListener(){
         this._element.querySelector('.element__trash').addEventListener('click',() => {
@@ -13,7 +12,7 @@ export default class Card {
         this._element.querySelector('.element__like').addEventListener('click',() => {
             this._likeElement();
         });
-        this._element.querySelector('.element__image').addEventListener('click',openImagePopup);
+        this._element.querySelector('.element__image').addEventListener('click',this._handleCardClick.bind(this));
     }
 
     _likeElement(){
