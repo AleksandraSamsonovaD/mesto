@@ -1,14 +1,13 @@
 export default class FormValidator{
-    constructor(config, formSelector){
+    constructor(config, formElement){
         this._config = config;
-        this._formSelector = formSelector;
+        this._formElement = formElement;
+        this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+        this._buttonElement = this._formElement.querySelector((this._config.submitButtonSelector));
     }
 
     enableValidation(){
-        const formList = Array.from(document.querySelectorAll(this._formSelector));
-        formList.forEach((form)=>{
-            this._setEventListener(form);
-        })
+        this._setEventListener(this._formElement);
     };
 
     _setEventListener(form){
@@ -17,21 +16,18 @@ export default class FormValidator{
             evt.preventDefault();
          });
     
-        const inputList = Array.from(form.querySelectorAll(this._config.inputSelector));
-        const buttonElement = form.querySelector((this._config.submitButtonSelector));
-    
-        inputList.forEach((input)=>{
+        this._inputList.forEach((input)=>{
             input.addEventListener('input',()=> {
                 this._checkInputValidity(form, input);
-                this.toggleButtonState(inputList,buttonElement);
+                this._toggleButtonState();
             });
         })
-        this.toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState();
     };
 
     
-    toggleButtonState(input,button) {  
-        button.disabled = this._hasInvalidInput(input); 
+    _toggleButtonState() {  
+        this._buttonElement.disabled = this._hasInvalidInput(this._inputList); 
     };
 
     _hasInvalidInput(input) {
@@ -44,17 +40,20 @@ export default class FormValidator{
         if (!formInput.validity.valid) {
           this._showError(form,formInput, formInput.validationMessage);
         } else {
-          this.hideError(form, formInput);
+          this._hideError(form, formInput);
         }
     };
 
-    hideError(form, input){
+    _hideError(form, input){
         const formError = form.querySelector(`.${input.id}-error`);
         input.classList.remove(this._config.inputErrorClass);
         formError.textContent = '';
         formError.classList.remove(this._config.errorActiveClass);
     };
-
+    hideErrors(form){
+       this._toggleButtonState()
+       this._inputList.forEach((input) => { this._hideError(form, input) });
+    }
     _showError(form, input, errorMessage){
         const formError = form.querySelector(`.${input.id}-error`);
         input.classList.add(this._config.inputErrorClass);

@@ -11,23 +11,31 @@ import {profileEdit,
       } from "../untils/constants.js";
 import './index.css';
 
+const formMesto = document.querySelector('#form-mesto');
+const formProfile = document.querySelector('#form-profile');
+const newName = formProfile.querySelector('[name = "name"]');
+const newDescription = formProfile.querySelector('[name = "description"]');
 
 const imagePopupClass = new PopupWithImage('.popup_type_image');
 
-const validMesto = new FormValidator(config, '#form-mesto');
+const validMesto = new FormValidator(config, formMesto);
 validMesto.enableValidation();
 
-const validProfile = new FormValidator(config, '#form-profile');
+const validProfile = new FormValidator(config, formProfile);
 validProfile.enableValidation();
+
+function createCard(form){
+  const element = new Card( form
+    , '#element-template'
+    , (evt) => imagePopupClass.open(evt));
+  return element.generateCard();
+}
 
 const cardSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const element = new Card({ name: item.name, addres: item.link }
-        , '#element-template'
-        , (evt) => imagePopupClass.open(evt));
-      const elementCard = element.generateCard();
+      const elementCard = createCard({ name: item.name, addres: item.link });
       cardSection.setItem(elementCard);
     }
   },
@@ -35,9 +43,6 @@ const cardSection = new Section(
 );
 cardSection.renderItems();
 
-const cardRenderer = new Section({
-  items: []
-}, '.elements');
 
 const userInfo = new UserInfo({ name: '.profile__title', description: '.profile__subtitle' });
 
@@ -47,29 +52,26 @@ const profilePopupClass = new PopupWithForm('.popup_type_profile',
     profilePopupClass.close();
   },
   (popup) => {
-    const newName = popup.querySelector('[name = "name"]');
-    const newDescription = popup.querySelector('[name = "description"]');
-    newName.value = userInfo.getUserInfo().name;
-    newDescription.value = userInfo.getUserInfo().description;
-    const inputList = Array.from(popup.querySelectorAll(config.inputSelector));
-    const buttonElement = popup.querySelector(config.submitButtonSelector);
-    validProfile.toggleButtonState(inputList, buttonElement);
-    inputList.forEach((input) => { validProfile.hideError(popup, input) });
+    const userData = userInfo.getUserInfo();
+    newName.value = userData.name;
+    newDescription.value = userData.description;
+    //const inputList = Array.from(popup.querySelectorAll(config.inputSelector));
+    //const buttonElement = popup.querySelector(config.submitButtonSelector);
+    //validProfile.toggleButtonState();
+    validProfile.hideErrors(popup);
   });
 
 const mestoPopupClass = new PopupWithForm('.popup_type_mesto',
   (form) => {
-    const element = new Card(form, '#element-template', (evt) => imagePopupClass.open(evt));
-    const elementCard = element.generateCard();
-    cardRenderer.setItem(elementCard);
+    const elementCard = createCard(form) 
+    cardSection.setItem(elementCard);
     mestoPopupClass.close();
   },
   (popup) => {
-    const inputList = Array.from(popup.querySelectorAll(config.inputSelector));
-    const buttonElement = popup.querySelector(config.submitButtonSelector);
-    validMesto.toggleButtonState(inputList, buttonElement);
-    const mestoForm = popup.querySelector('.popup__container');
-    inputList.forEach((input) => { validMesto.hideError(mestoForm, input) });
+    //const inputList = Array.from(popup.querySelectorAll(config.inputSelector));
+    //const buttonElement = popup.querySelector(config.submitButtonSelector);
+    //validMesto.toggleButtonState();
+    validMesto.hideErrors(popup);
   }
 );
 
