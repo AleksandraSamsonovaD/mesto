@@ -34,3 +34,8 @@ export const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
   ];
+
+export const formMesto = document.querySelector('#form-mesto');
+export const formProfile = document.querySelector('#form-profile');
+export const newName = formProfile.querySelector('[name = "name"]');
+export const newDescription = formProfile.querySelector('[name = "description"]');

@@ -7,14 +7,15 @@ import UserInfo from "../components/UserInfo.js";
 import {profileEdit,
         mestoEdit,
         config,
-        initialCards
+        initialCards,
+        formMesto,
+        formProfile,
+        newName,
+        newDescription
       } from "../untils/constants.js";
 import './index.css';
 
-const formMesto = document.querySelector('#form-mesto');
-const formProfile = document.querySelector('#form-profile');
-const newName = formProfile.querySelector('[name = "name"]');
-const newDescription = formProfile.querySelector('[name = "description"]');
+
 
 const imagePopupClass = new PopupWithImage('.popup_type_image');
 
@@ -55,9 +56,6 @@ const profilePopupClass = new PopupWithForm('.popup_type_profile',
     const userData = userInfo.getUserInfo();
     newName.value = userData.name;
     newDescription.value = userData.description;
-    //const inputList = Array.from(popup.querySelectorAll(config.inputSelector));
-    //const buttonElement = popup.querySelector(config.submitButtonSelector);
-    //validProfile.toggleButtonState();
     validProfile.hideErrors(popup);
   });
 
@@ -68,9 +66,6 @@ const mestoPopupClass = new PopupWithForm('.popup_type_mesto',
     mestoPopupClass.close();
   },
   (popup) => {
-    //const inputList = Array.from(popup.querySelectorAll(config.inputSelector));
-    //const buttonElement = popup.querySelector(config.submitButtonSelector);
-    //validMesto.toggleButtonState();
     validMesto.hideErrors(popup);
   }
 );
