@@ -1,0 +1,13 @@
+.element__count{
+    height: 13px;
+    width: 10px;
+    border: none;
+    padding: 0;
+    margin: 3px auto 0;
+    background-color: white;
+    font-family: Inter, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;  
+}

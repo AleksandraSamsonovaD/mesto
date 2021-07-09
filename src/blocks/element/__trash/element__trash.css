@@ -3,7 +3,7 @@
     width: 18px;
     height: 19px;
     background-image: url(../../../images/Trash.svg);
-    display: block;
+    display: none;
     border: none;
     padding: 0;
     margin: 0;

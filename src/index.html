@@ -15,7 +15,9 @@
     <main>
         <section class="profile">
             <div class="profile__file">
-                <img class="profile__avatar" alt="Аватар" src="<%=require('./images/avatar.jpg')%>">
+                <div class="profile__edit__avatar">
+                    <img class="profile__avatar" alt="Аватар" src="<%=require('./images/avatar.jpg')%>">
+                </div>
                 <div class="profile__info">
                     <button type="button" class="profile__edit" name="opener-profile"></button>
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -38,7 +40,11 @@
             <img class="element__image" alt="Место" name="opener-image">
             <div class="element__description">
                 <h2 class="element__title"></h2>
-                <button type="button" class="element__like"></button>
+                <div class="element__likes">
+                    <button type="button" class="element__like"></button>
+                    <p class="element__count">0</p>
+                </div>
+                
             </div>
             <button type="button" class="element__trash"></button>
         </div>
@@ -77,6 +83,27 @@
         <div class="popup__body popup__body_image">
             <img alt="Место" class="popup__image" src="#">
             <p class="popup__name"></p>
+            <button class="popup__close" type="button"></button>
+        </div>
+    </div>
+    <div class="popup popup_type_delete">
+        <div class="popup__body popup__body_delete">
+            <h2 class="popup__title">Вы уверены?</h2>
+            <form class="popup__container" name="info-delete" id ="form-delete">
+                <button class="popup__save" type="submit">Да</button>
+            </form>
+            <button class="popup__close" type="button"></button>
+        </div>
+    </div>
+    <div class="popup popup_type_photo">
+        <div class="popup__body popup__body_photo">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form class="popup__container" name="info-photo" id ="form-photo">
+                <input type="url" class="popup__text" name="addres" 
+                placeholder="Ссылка аватар" required id="url-input">
+                <span class="popup__input-error url-input-error" ></span>
+                <button class="popup__save" type="submit">Сохранить</button>
+            </form>
             <button class="popup__close" type="button"></button>
         </div>
     </div>
