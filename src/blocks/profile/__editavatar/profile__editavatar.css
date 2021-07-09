@@ -1,10 +1,10 @@
-.profile__edit__avatar{
+.profile__editavatar{
     width: 120px;
     height: 120px;
     border-radius: 50%;
     margin-right: 30px;
 }
-.profile__edit__avatar:hover{
+.profile__editavatar:hover{
     background-image: url(../../../images/edit.svg);
     background-size: 26px 26px;
     background-repeat: no-repeat;
