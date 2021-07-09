@@ -30,20 +30,20 @@ function rendererLoging(isLoading, form){
 
 const api = new Api('https://mesto.nomoreparties.co/v1/cohort-25/','cb542bb8-f2ee-4727-827f-133e0aa782d9');
 let userId;
-api.getUserInfo()
+const promisUserInfo = api.getUserInfo()
       .then(result =>{
-        document.querySelector('.profile__title').textContent = result.name;
-        document.querySelector('.profile__subtitle').textContent = result.about;
-        document.querySelector('.profile__avatar').src = result.avatar;
-        userId = result._id
+        userInfo.setUserInfo({name: result.name,description: result.about, avatar: result.avatar});
+        userId = result._id;
       })
       .catch(err => console.log(err));
-api.getCards()
+const promisGetCards = api.getCards()
   .then(result => {
-    result.forEach(res =>{
-      createCard({ name: res.name, addres: res.link, likes: res.likes, idUser:res.owner._id, id:res._id });
-    })
+    cardSection.renderItems(result);
   })
+  .catch(err => console.log(err));
+
+Promise.all([promisUserInfo,promisGetCards])
+  .then(()=>console.log('страница загружена'))
   .catch(err => console.log(err));
 
   const deletePopupClass = new PopupWithFormId('.popup_type_delete',
@@ -102,10 +102,9 @@ const cardSection = new Section(
   },
   '.elements'
 );
-cardSection.renderItems();
 
 
-const userInfo = new UserInfo({ name: '.profile__title', description: '.profile__subtitle' });
+const userInfo = new UserInfo({ name: '.profile__title', description: '.profile__subtitle', avatar: '.profile__avatar' });
 
 const profilePopupClass = new PopupWithForm('.popup_type_profile',
   (form) => {
@@ -113,16 +112,16 @@ const profilePopupClass = new PopupWithForm('.popup_type_profile',
     api.setUserInfo({name: form.name, about: form.description})
     .then((result)=> {
       profilePopupClass.close();
-      userInfo.setUserInfo({name: result.name, description:result.about });
+      userInfo.setUserInfo({name: result.name, description:result.about, avatar: result.avatar });
     } )
     .catch(err => console.log(err))
     .finally(()=> rendererLoging(false,'.popup_type_profile'))
   },
-  (popup) => {
+  () => {
     const userData = userInfo.getUserInfo();
     newName.value = userData.name;
     newDescription.value = userData.description;
-    validProfile.hideErrors(popup);
+    validProfile.hideErrors();
   });
 
 const mestoPopupClass = new PopupWithForm('.popup_type_mesto',
@@ -136,21 +135,21 @@ const mestoPopupClass = new PopupWithForm('.popup_type_mesto',
     .catch(err => console.log(err))
     .finally(()=> rendererLoging(false,'.popup_type_mesto'));
   },
-  (popup) => {
-    validMesto.hideErrors(popup);
+  () => {
+    validMesto.hideErrors();
   }
 );
 const photoPopupClass = new PopupWithForm('.popup_type_photo',
   (form) => {
     rendererLoging(true,'.popup_type_photo');
     api.editAvatar({avatar:form.addres})
-    .then(result => {console.log(result)
-      document.querySelector('.profile__avatar').src = result.avatar;
+    .then(result => {
+      userInfo.setUserInfo({name: result.name,description: result.about, avatar: result.avatar});
       photoPopupClass.close();})
     .catch(err => console.log(err))
     .finally(()=> rendererLoging(false, '.popup_type_photo'));
     },
-  (popup) => validPhoto.hideErrors(popup)
+  () => validPhoto.hideErrors()
 );
 
 

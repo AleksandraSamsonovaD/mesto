@@ -7,18 +7,18 @@ export default class FormValidator{
     }
 
     enableValidation(){
-        this._setEventListener(this._formElement);
+        this._setEventListener();
     };
 
-    _setEventListener(form){
+    _setEventListener(){
 
-        form.addEventListener('submit',(evt)=>{ 
+        this._formElement.addEventListener('submit',(evt)=>{ 
             evt.preventDefault();
          });
     
         this._inputList.forEach((input)=>{
             input.addEventListener('input',()=> {
-                this._checkInputValidity(form, input);
+                this._checkInputValidity(this._formElement, input);
                 this._toggleButtonState();
             });
         })
@@ -50,9 +50,9 @@ export default class FormValidator{
         formError.textContent = '';
         formError.classList.remove(this._config.errorActiveClass);
     };
-    hideErrors(form){
+    hideErrors(){
        this._toggleButtonState()
-       this._inputList.forEach((input) => { this._hideError(form, input) });
+       this._inputList.forEach((input) => { this._hideError(this._formElement, input) });
     }
     _showError(form, input, errorMessage){
         const formError = form.querySelector(`.${input.id}-error`);
