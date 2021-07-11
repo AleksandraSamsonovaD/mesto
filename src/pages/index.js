@@ -24,26 +24,22 @@ function rendererLoging(isLoading, form){
     formButton.textContent  = 'Сохранение...';
   }
   else {
-    formButton.textContent = 'Сохраненить'
+    formButton.textContent = 'Сохранить'
   }
 }
 
 const api = new Api('https://mesto.nomoreparties.co/v1/cohort-25/','cb542bb8-f2ee-4727-827f-133e0aa782d9');
 let userId;
-const promisUserInfo = api.getUserInfo()
-      .then(result =>{
-        userInfo.setUserInfo({name: result.name,description: result.about, avatar: result.avatar});
-        userId = result._id;
-      })
-      .catch(err => console.log(err));
-const promisGetCards = api.getCards()
-  .then(result => {
-    cardSection.renderItems(result);
-  })
-  .catch(err => console.log(err));
+const promisUserInfo = api.getUserInfo();
+const promisGetCards = api.getCards();
 
 Promise.all([promisUserInfo,promisGetCards])
-  .then(()=>console.log('страница загружена'))
+  .then(([userInfom, initialCards]) =>{
+    userInfo.setUserInfo({name: userInfom.name,description: userInfom.about, avatar: userInfom.avatar});
+    userId = userInfom._id;
+    cardSection.renderItems(initialCards);
+  }
+  )
   .catch(err => console.log(err));
 
   const deletePopupClass = new PopupWithFormId('.popup_type_delete',
